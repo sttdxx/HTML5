@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.i1{
+			width:50px;
+			height:50px;
+			background: pink;
+			position: absolute;
+			left:500px;
+			top:300px;
+			border-radius:50%;
+			line-height: 50px;
+			text-align: center;
+			color:red;
+			box-shadow: 0 0 20px 2px grey;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="i1" id="d1">
+		11
+	</div>
+	
+	<script type="text/javascript">
+		var flag=0;
+		d1.onclick=function(){
+			if(flag==0){
+				flag=2;
+				var t=d1.offsetTop;
+				var l=d1.offsetLeft;
+				var d11=document.createElement("div");
+					d11.id="d11";
+					d11.style.cssText="width:50px;height:50px;border-radius:50%;position:absolute;background:pink;line-height: 50px;text-align: center;color:red;box-shadow: 0 0 20px 2px grey;z-index:-1;";
+					d11.style.left=l+100+"px";
+					d11.style.top=t+"px";
+					d11.innerHTML="";
+				document.body.appendChild(d11);
+				var i=0,a=1;
+				var si;
+				si=setInterval(function(){
+					var d11=document.getElementById("d11");
+						i=i+1;
+						d11.style.left=(l+Math.cos(2*Math.PI/360*i)*100)+"px";
+						d11.style.top=(t-Math.sin(2*Math.PI/360*i)*100)+"px";
+
+					if(i%60==0){
+						a++;
+						var d12=document.createElement("div");
+							d12.id="d1"+a;
+							d12.style.cssText="width:50px;height:50px;border-radius:50%;position:absolute;background:pink;line-height: 50px;text-align: center;color:red;box-shadow: 0 0 20px 2px grey;";
+							d12.style.left=(l+Math.cos(2*Math.PI/360*i)*100)+"px";
+							d12.style.top=(t-Math.sin(2*Math.PI/360*i)*100)+"px"
+							d12.innerHTML=a-1;
+						document.body.appendChild(d12);
+					}
+
+					if(i>=360){
+						flag=1;
+						d11.remove();
+						clearInterval(si);
+					}
+				},10);
+			}else if(flag==1){
+				flag=2;
+				var t=d1.offsetTop;
+				var l=d1.offsetLeft;
+				var i=360,a=7;
+				var si;
+				si=setInterval(function(){
+					var d11=document.getElementById("d1"+a);
+						i=i-1;
+						d11.style.left=(l+Math.cos(2*Math.PI/360*i)*100)+"px";
+						d11.style.top=(t-Math.sin(2*Math.PI/360*i)*100)+"px";
+					if(i%60==0){
+						a--;
+						d11.remove();
+					}
+					if(i<=0){
+						flag=0;
+						clearInterval(si);
+					}
+				},10);
+			}
+		}
+	</script>
+</body>
+</html>
